@@ -661,6 +661,10 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-si
       s+=`<text x="${cx}" y="${H-pB+18}" text-anchor="middle" font-size="11" fill="${SO}">${l}</text>`;
     });
 
+    // benchmark line
+    const by=py(0.55);
+    s+=`<line x1="${pL}" y1="${by}" x2="${W-pR}" y2="${by}" stroke="${SO}" stroke-width="1" stroke-dasharray="4,4"/>`;
+    s+=`<text x="${pL+6}" y="${by-5}" font-size="10" fill="${SO}">LinkedIn benchmark 0.55%</text>`;
     s+='</svg>';
     document.getElementById('ga_sp').innerHTML=s;
   })();
