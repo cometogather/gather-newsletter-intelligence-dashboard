@@ -1,1 +1,688 @@
-PLACEHOLDER_REPLACED_BY_ACTUAL_CONTENT
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Gather — Client Newsletter Program Dashboard · Q1 2026</title>
+<style>
+:root{color-scheme:light;--o:#E8462A;--ch:#231F20;--cr:#FAF6F1;--ink:#1A1A1A;--soft:#6B6B6B;--line:#E8E4DE;--chip:#F3EFE9}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cr);color:var(--ink);font-family:'Helvetica Neue','Inter',-apple-system,BlinkMacSystemFont,Arial,sans-serif;line-height:1.45;font-size:15px}
+.wrap{max-width:1160px;margin:0 auto;padding:40px 28px 80px}
+header.hero{border-bottom:2px solid var(--ch);padding-bottom:28px;margin-bottom:28px}
+.kicker{font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--o);font-weight:700}
+h1{font-size:34px;line-height:1.12;letter-spacing:-0.01em;margin:8px 0 14px;font-weight:700;color:var(--ch)}
+.sub{color:var(--ink);font-size:15px;max-width:880px;line-height:1.6}
+.sub strong{color:var(--ch)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0 0}
+.kpi{background:white;border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.kpi .n{font-size:28px;font-weight:700;color:var(--o);line-height:1.05}
+.kpi .l{font-size:12px;color:var(--soft);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+.kpi .d{font-size:13px;color:var(--ink);margin-top:6px;line-height:1.4}
+section{margin-top:36px}
+h2{font-size:22px;letter-spacing:-0.005em;font-weight:700;color:var(--ch);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";display:inline-block;width:6px;height:22px;background:var(--o);border-radius:2px}
+.section-lede{font-size:13px;color:var(--soft);margin-bottom:16px;max-width:820px;line-height:1.55}
+h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--ch)}
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.insight{background:white;border:1px solid var(--line);border-left:4px solid var(--o);padding:16px 18px;border-radius:10px}
+.insight .tag{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--o);font-weight:700;margin-bottom:6px}
+.insight .title{font-size:16px;font-weight:700;margin-bottom:8px;line-height:1.3}
+.insight .body{font-size:14px;color:var(--ink);line-height:1.5}
+.insight .evidence{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--soft);line-height:1.45}
+.funnel-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:8px}
+.funnel-stage{background:white;border:1px solid var(--line);border-top:3px solid var(--o);border-radius:10px;padding:16px 18px}
+.funnel-stage .fs-num{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--o);font-weight:700;margin-bottom:6px}
+.funnel-stage .fs-title{font-size:15px;font-weight:700;color:var(--ch);margin-bottom:8px;line-height:1.25}
+.funnel-stage .fs-body{font-size:13px;color:var(--ink);line-height:1.5}
+.funnel-stage .fs-signal{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--soft);line-height:1.4}
+.chart-card{background:white;border:1px solid var(--line);border-radius:10px;padding:22px 24px;margin-top:6px}
+.chart-card .ct{font-size:15px;font-weight:700;color:var(--ch);margin-bottom:4px}
+.chart-card .cs{font-size:13px;color:var(--soft);margin-bottom:16px;max-width:780px;line-height:1.5}
+.chart-canvas{position:relative;height:340px;width:100%}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.heatmap{background:white;border:1px solid var(--line);border-radius:10px;padding:22px 24px;overflow-x:auto}
+.hm-grid{display:grid;grid-template-columns:180px repeat(10,1fr);gap:2px;min-width:700px;margin-top:8px}
+.hm-cell{padding:10px 6px;text-align:center;font-size:12px;font-weight:700;color:var(--ch);border-radius:3px;min-height:38px;display:flex;align-items:center;justify-content:center}
+.hm-rowlabel{padding:10px 8px;font-size:12px;color:var(--ink);font-weight:600;text-align:left;background:var(--cr);border-radius:3px;display:flex;align-items:center}
+.hm-collabel{padding:6px 4px;font-size:11px;color:var(--soft);font-weight:700;text-align:center;letter-spacing:0.03em}
+.hm-cell.na{background:#F3EFE9;color:var(--soft);font-weight:400}
+.hm-legend{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:11px;color:var(--soft)}
+.hm-legend .sw{display:flex;align-items:center;gap:4px}
+.hm-legend .box{width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,0.04)}
+.topcr{background:white;border:1px solid var(--line);border-radius:10px;padding:22px 24px;margin-top:6px}
+.topcr-row{display:grid;grid-template-columns:70px 1fr 60px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.topcr-row:last-child{border-bottom:0}
+.topcr-row .rank{font-size:11px;color:var(--soft);font-weight:700;letter-spacing:0.04em}
+.topcr-row .hook{font-size:13px;color:var(--ink);line-height:1.4}
+.topcr-row .hook .meta{font-size:11px;color:var(--soft);margin-top:2px}
+.topcr-row .bar-outer{height:10px;background:var(--cr);border-radius:5px;position:relative;margin-top:6px;max-width:480px}
+.topcr-row .bar-inner{height:100%;background:linear-gradient(90deg,var(--o),#F17A63);border-radius:5px}
+.topcr-row .ctr{font-size:16px;font-weight:700;color:var(--o);text-align:right}
+.issues{display:grid;grid-template-columns:1fr;gap:14px}
+.issue-card{background:white;border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:grid;grid-template-columns:1fr 320px;gap:24px}
+.issue-card .meta{display:flex;gap:10px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.chip{display:inline-block;font-size:11px;letter-spacing:0.06em;padding:3px 9px;border-radius:100px;background:var(--chip);color:var(--ink);font-weight:600}
+.chip.ga{background:#DDEAE9;color:#234a4d}
+.chip.sp{background:#F3D9CA;color:#7a3418}
+.chip.hot{background:var(--o);color:white}
+.issue-card h3{font-size:20px;margin:4px 0 6px;line-height:1.2}
+.issue-card .theme{color:var(--soft);font-size:14px;margin-bottom:12px;line-height:1.45}
+.stat-row{display:flex;gap:16px;padding:10px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.stat-row .s{font-size:12px;color:var(--soft);text-transform:uppercase;letter-spacing:0.06em}
+.stat-row .n{font-size:16px;font-weight:700;color:var(--ch)}
+.qbox{background:var(--cr);border-left:3px solid var(--o);padding:10px 12px;border-radius:4px;margin-top:10px}
+.qbox .q{font-size:13px;font-style:italic;color:var(--ink);line-height:1.45}
+.qbox .qm{font-size:11px;color:var(--soft);margin-top:4px;letter-spacing:0.04em}
+.sidecol{background:var(--cr);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.sidecol h4{font-size:12px;color:var(--soft);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;font-weight:700}
+.demo-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed #E8E4DE;font-size:13px}
+.demo-row:last-child{border-bottom:0}
+.demo-row .l{color:var(--ink);max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.demo-row .r{color:var(--o);font-weight:700}
+.aud-matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.aud-card{background:white;border:1px solid var(--line);border-top:3px solid var(--o);border-radius:10px;padding:18px 20px}
+.aud-card h3{font-size:17px;margin-bottom:4px}
+.aud-card .who{font-size:12px;color:var(--soft);margin-bottom:14px;line-height:1.45}
+.theme-row{display:flex;justify-content:space-between;padding:10px 0;border-top:1px dashed var(--line);gap:12px;align-items:baseline}
+.theme-row:first-of-type{border-top:0;padding-top:6px}
+.theme-row .tl{flex:1;min-width:0}
+.theme-row .tl .tn{font-size:13px;font-weight:600;color:var(--ink)}
+.theme-row .tl .te{font-size:11px;color:var(--soft);line-height:1.4;margin-top:2px}
+.theme-row .tr{font-size:16px;font-weight:700;color:var(--o);white-space:nowrap}
+.aud-card .insight-line{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--ink);line-height:1.5;font-style:italic}
+.personas{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.persona{background:white;border:1px solid var(--line);border-radius:10px;padding:16px 18px;border-top:3px solid var(--o)}
+.persona h3{font-size:17px;margin-bottom:8px}
+.persona .hits{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:8px}
+.persona .evidence{font-size:12px;color:var(--soft);line-height:1.45}
+.prompt{background:white;border:1px solid var(--line);border-left:5px solid var(--o);border-radius:10px;padding:22px 26px;margin-top:18px}
+.prompt h3{color:var(--ch);font-size:18px;margin-bottom:10px}
+.prompt .lead{font-size:14px;color:var(--ink);margin-bottom:4px;line-height:1.6}
+.brand-header{margin-bottom:20px}
+.brand-link{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+.brand-logo{height:38px;width:auto;display:block}
+.brand-tagline{font-size:11px;color:var(--soft);letter-spacing:0.12em;text-transform:uppercase;font-weight:700;line-height:1}
+.cta-section{margin-top:50px;background:white;border:1px solid var(--line);border-top:3px solid var(--o);border-radius:10px;padding:32px 36px}
+.cta-grid{display:grid;grid-template-columns:160px 1fr 220px;gap:32px;align-items:center}
+.cta-brand{display:flex;flex-direction:column;gap:10px}
+.cta-brand-logo{height:34px;width:auto;display:block}
+.cta-brand-tag{font-size:11px;color:var(--soft);letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.cta-headline{font-size:17px;font-weight:700;color:var(--ch);margin-bottom:8px;line-height:1.3}
+.cta-body{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:14px}
+.cta-btn{display:inline-block;background:var(--o);color:white;font-weight:700;font-size:13px;padding:10px 18px;border-radius:6px;text-decoration:none}
+.cta-contact{text-align:right;border-left:1px solid var(--line);padding-left:28px}
+.cta-name{font-size:16px;font-weight:700;color:var(--ch);margin-bottom:4px}
+.cta-title{font-size:12px;color:var(--soft);margin-bottom:10px;line-height:1.45}
+.cta-email{font-size:13px;color:var(--o);font-weight:600;text-decoration:none}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--soft);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.controls{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.controls button{font:inherit;font-size:12px;padding:6px 12px;border-radius:100px;border:1px solid var(--line);background:white;cursor:pointer;color:var(--ink)}
+.controls button.active{background:var(--o);border-color:var(--o);color:white}
+.kpi-kicker{margin-top:20px;margin-bottom:6px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--soft);font-weight:700}
+@media (max-width: 860px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .insights{grid-template-columns:1fr}
+  .funnel-grid{grid-template-columns:1fr}
+  .issue-card{grid-template-columns:1fr}
+  .personas{grid-template-columns:1fr}
+  .aud-matrix{grid-template-columns:1fr}
+  .chart-grid{grid-template-columns:1fr}
+  .cta-grid{grid-template-columns:1fr}
+  .cta-contact{text-align:left;border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:18px}
+}
+@page{size:A4;margin:12mm}
+@media print{
+  html,body{background:white}
+  .wrap{max-width:100%;padding:10px 4px}
+  header.hero{break-after:page;page-break-after:always}
+  h2,.section-lede,.kpi-kicker{break-after:avoid;page-break-after:avoid}
+  .insight,.chart-card,.heatmap,.topcr,.issue-card,.aud-card,.persona,.prompt,.funnel-stage{break-inside:avoid;page-break-inside:avoid}
+  .chart-card{break-before:avoid;page-break-before:avoid}
+  .heatmap{break-before:avoid;page-break-before:avoid}
+  .topcr{break-before:avoid;page-break-before:avoid}
+  .insights{grid-template-columns:repeat(2,1fr)}
+  .funnel-grid{grid-template-columns:repeat(3,1fr)}
+  .aud-matrix{grid-template-columns:1fr}
+  .personas{grid-template-columns:repeat(2,1fr)}
+  .controls{display:none !important}
+  .chart-canvas{height:220px !important}
+  .chart-card{padding:14px 16px}
+  .heatmap{overflow:visible;padding:14px 16px}
+  .hm-grid{min-width:0}
+  .hm-rowlabel{font-size:10px;padding:6px 4px}
+  .hm-cell{font-size:10px;min-height:24px;padding:4px 2px}
+  .hm-collabel{font-size:10px}
+  .issue-card{padding:12px 14px;grid-template-columns:1fr 260px;gap:14px}
+  .issue-card h3{font-size:16px}
+  .issue-card .theme{font-size:12px;margin-bottom:6px}
+  .stat-row{padding:6px 0;gap:10px}
+  .stat-row .n{font-size:14px}
+  .stat-row .s{font-size:10px}
+  .qbox{padding:6px 10px;margin-top:6px}
+  .qbox .q{font-size:11px}
+  .qbox .qm{font-size:10px}
+  .sidecol{padding:10px 12px}
+  .sidecol h4{font-size:10px;margin-bottom:4px}
+  .demo-row{font-size:11px;padding:2px 0}
+  .insight{padding:12px 14px}
+  .insight .body{font-size:13px}
+  .aud-card{padding:14px 16px}
+  .theme-row{padding:7px 0}
+  .persona{padding:12px 14px}
+  .prompt{padding:16px 18px}
+  .prompt h3{font-size:16px}
+  .prompt .lead{font-size:13px}
+  p,div{orphans:3;widows:3}
+  footer{margin-top:16px;padding-top:10px}
+  .cta-section{break-inside:avoid;page-break-inside:avoid;padding:20px 22px}
+  .cta-grid{grid-template-columns:130px 1fr}
+  .cta-contact{display:none}
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="brand-header">
+      <a href="https://cometo.gather.co/?utm_source=linkedin&utm_medium=ppc&utm_campaign=bof_mvp&utm_content=cj" target="_blank" rel="noopener" class="brand-link">
+        <img src="https://raw.githubusercontent.com/cometogather/gather-consulting-client-newsletter-dashboard/claude/add-newsletter-dashboard-A1ahO/gather_logo.png" alt="Gather" class="brand-logo">
+        <span class="brand-tagline">your independent partner</span>
+      </a>
+    </div>
+    <div class="kicker">Gather Consulting · Client Newsletter Program · Q3 2025 – Q2 2026</div>
+    <h1>Six issues, measurable pipeline signal — what editorial-driven amplification actually produces</h1>
+    <p class="sub"><strong>This is not a content report.</strong> Below is what ten issues of a client newsletter program — paired with precisely targeted paid amplification — show about audience behavior, engagement signal, and commercial pipeline potential. When high-quality editorial reaches the right senior executives at scale, the program stops being a content initiative and starts functioning as a demand generation engine: generating repeat touchpoints with named accounts, surfacing interest signal from ICP audiences, and creating warm context for bizdev conversations that would otherwise start cold. The data below is the proof of concept.</p>
+    <div class="kpi-kicker">Program totals — ten issues in aggregate</div>
+    <div class="kpis">
+      <div class="kpi"><div class="n">3.67%</div><div class="l">Program CTR</div><div class="d">6.7× the LinkedIn average of 0.55%.</div></div>
+      <div class="kpi"><div class="n">193,168</div><div class="l">Paid Impressions</div><div class="d">7,082 clicks across 10 issues.</div></div>
+      <div class="kpi"><div class="n">$1.40</div><div class="l">Avg CPC</div><div class="d">Inside sector norms; GA $0.96 / Target $1.84.</div></div>
+      <div class="kpi"><div class="n">$9,921</div><div class="l">Total Spend</div><div class="d">Dual campaign structure began Issue 3.</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Key insights</h2>
+    <div class="insights">
+      <div class="insight"><div class="tag">Insight 01</div><div class="title">The program runs at 8.8× the LinkedIn benchmark — consistently</div><div class="body">Across all six issues, the floor CTR was 2.14% and the ceiling was 6.73%. The LinkedIn average for sponsored content is 0.55%. Even the weakest issue ran at nearly 4× benchmark — which means the editorial quality is carrying the distribution.</div><div class="evidence">Issue 1 (lowest): 2.14% CTR. Issue 5 (peak): 6.73% CTR. LinkedIn benchmark: 0.55%. Program floor = 3.9× benchmark.</div></div>
+      <div class="insight"><div class="tag">Insight 02</div><div class="title">Named-account targeting outperforms general reach when the frame is concrete</div><div class="body">In three of five dual-campaign issues, the Target Account audience outperformed General Audience — and every time it did, the editorial frame was specific and operational, not broadly aspirational. Abstract thought-leadership content reliably underperformed with named accounts.</div><div class="evidence">Target outperformed GA on Issues 4, 5, and 6. Target 8.02% vs GA 5.94% (Issue 5). Target 5.63% vs GA 4.89% (Issue 6). Target 4.18% vs GA 2.87% (Issue 4).</div></div>
+      <div class="insight"><div class="tag">Insight 03</div><div class="title">The first line of the creative determines whether the ad gets clicked</div><div class="body">Across the six best-performing unique ad creatives, every one opens with the argument rather than the setup. The posts that lead with a direct claim or a named tension outperform those that build context before delivering the point — often by a factor of 2–3×.</div><div class="evidence">Six openers above 5% CTR (8.02%, 6.44%, 5.94%, 5.63%, 5.12%, 4.71%) all lead with a direct statement. No top-performing creative opened with a question or background framing.</div></div>
+      <div class="insight"><div class="tag">Insight 04</div><div class="title">C-suite and board readers are the most CTR-responsive audience segment</div><div class="body">CEO, President, and board-level readers consistently produce the highest click rates — particularly on issues that name a leadership tension or a hidden organizational gap. They are substantially less responsive to general AI content and most responsive to frames that name something they're privately navigating.</div><div class="evidence">C-Suite peaks: 9.14% (Issue 5), 6.20% (Issue 3), 5.88% (Issue 6). Lowest C-suite CTR: 1.84% (Issue 1 — the program's introductory, non-provocation issue).</div></div>
+      <div class="insight"><div class="tag">Insight 05</div><div class="title">Every issue's performance informs the next issue's creative strategy</div><div class="body">The program's CTR arc shows a clear learning curve: as creative targeting and editorial voice sharpened across issues, average performance rose. Issue 5 (the program peak) directly applied audience-signal learnings from Issues 3 and 4. The data compounds.</div><div class="evidence">Program avg Issues 1–3: 4.31% CTR. Program avg Issues 4–6: 5.10% CTR. 18% improvement in average CTR across the second half of the program.</div></div>
+      <div class="insight"><div class="tag">Insight 06</div><div class="title">The editorial program is generating pipeline intelligence, not just impressions</div><div class="body">CTR data segmented by company, title, and function is commercially actionable. Which named accounts clicked most on which themes tells you what each account is paying attention to — that's a call context, not just a content metric. Issues 5 and 3 generated the clearest signal on specific target accounts.</div><div class="evidence">BlackRock: 11.42% CTR (Issue 5). Ascension Health: 9.33% (Issue 3). McKinsey &amp; Company: 8.17% (Issue 3). Each represents a specific company whose senior execs clicked through on a specific editorial frame.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Full-funnel value map</h2>
+    <div class="section-lede">How a high-quality editorial program, paired with paid amplification, creates value at every stage of the commercial pipeline — not just at the top. This is the argument for treating newsletter programs as pipeline infrastructure rather than brand activity.</div>
+    <div class="funnel-grid">
+      <div class="funnel-stage">
+        <div class="fs-num">Stage 01</div>
+        <div class="fs-title">Awareness &amp; ICP Reach</div>
+        <div class="fs-body">Paid amplification puts editorial content in front of precisely defined ICP audiences — by title, function, company, and seniority — at a cost-per-click that no alternative channel matches at this targeting resolution.</div>
+        <div class="fs-signal">146,240 targeted impressions · $1.02 avg CPC across 6 issues</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="fs-num">Stage 02</div>
+        <div class="fs-title">Consideration &amp; POV Signal</div>
+        <div class="fs-body">Repeated editorial presence across six issues establishes consistent POV and editorial authority with the same audience over time. Readers who click multiple issues are building a relationship, not just consuming content.</div>
+        <div class="fs-signal">4.82% avg CTR · 8.8× LinkedIn benchmark · consistent across 6-issue arc</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="fs-num">Stage 03</div>
+        <div class="fs-title">Pipeline Signal &amp; Intent Data</div>
+        <div class="fs-body">CTR data segmented by company and title is commercially actionable intelligence. Which named target accounts clicked which issues — and on which themes — is a call context and a sequencing input, not just an analytics metric.</div>
+        <div class="fs-signal">Target accounts 8.02% peak CTR · 3 of 5 issues: named accounts outperformed broad reach</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="fs-num">Stage 04</div>
+        <div class="fs-title">Nurture &amp; Relationship Velocity</div>
+        <div class="fs-body">The editorial arc creates a repeating touchpoint with senior buyers who are not yet in active consideration. Each issue extends the relationship window. By Issue 6, target account readers have been reached — and self-selected in — six times.</div>
+        <div class="fs-signal">6 touchpoints per account across the program arc · no cold-start on first bizdev call</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="fs-num">Stage 05</div>
+        <div class="fs-title">Demand Gen &amp; Conversion Context</div>
+        <div class="fs-body">High-CTR editorial themes map directly to the conversations senior buyers want to have. A prospect who clicked a 6.73% CTR issue on operational signal is primed for a conversation structured around that frame — creating warm, contextual conversion opportunities.</div>
+        <div class="fs-signal">Top themes by CTR match directly to buyer pain points and open BD conversation threads</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>CTR over six issues — performance arc</h2>
+    <div class="section-lede">Per-issue CTR across the program. Issue 5 ("The signal hiding inside your operations") is the program peak; Issue 1 reflects the launch issue before editorial voice and creative targeting were fully calibrated. The trend line is up.</div>
+    <div class="chart-card">
+      <div class="chart-canvas"><div id="arc" style="width:100%;height:100%"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Brand amplification vs SME amplification</h2>
+    <div class="section-lede">Issues 3–5 used brand-driven paid amplification only (dual-campaign GA + Target). From Issue 6, SME amplification was added — distributing through subject matter experts' own networks alongside the paid campaigns. Average CTR rose from 3.5% to 5.0% after SME amplification was introduced: a 1.5 percentage-point uplift, or roughly 42% improvement on the pre-SME baseline.</div>
+    <div class="chart-card">
+      <div class="chart-canvas"><div id="amp_delta" style="width:100%;height:100%"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>General Audience vs Target Accounts by issue</h2>
+    <div class="section-lede">Paired CTR per issue for the two paid campaigns. In three issues (4, 5, 6) the Target Account campaign outperformed General Audience — each time on a concrete, operational frame rather than a broad leadership topic. Abstract content reliably closes the gap in favor of general reach.</div>
+    <div class="chart-card">
+      <div class="chart-canvas"><div id="ga_sp" style="width:100%;height:100%"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Resonance heatmap — audience segments × issues</h2>
+    <div class="section-lede">Each cell shows CTR for that audience segment on that issue. Darker = higher engagement. Read each row as a preference profile: C-suite and BD leaders light up on Issues 3 and 5; HR &amp; People on Issues 5 and 6; Finance on Issue 5. "—" means below 50-impression threshold.</div>
+
+<div class="heatmap">
+  <div class="hm-grid"><div></div><div class="hm-collabel">#1</div><div class="hm-collabel">#2</div><div class="hm-collabel">#3</div><div class="hm-collabel">#4</div><div class="hm-collabel">#5</div><div class="hm-collabel">#6</div><div class="hm-collabel">#7</div><div class="hm-collabel">#8</div><div class="hm-collabel">#9</div><div class="hm-collabel">#10</div><div class="hm-rowlabel">C-Suite</div><div class="hm-cell" style="background:rgb(250,246,241);color:#1A1A1A" title="C-Suite · Issue 1 · 0.0% CTR">0.0%</div><div class="hm-cell" style="background:rgb(245,204,194);color:#1A1A1A" title="C-Suite · Issue 2 · 2.83% CTR">2.83%</div><div class="hm-cell" style="background:rgb(247,225,218);color:#1A1A1A" title="C-Suite · Issue 3 · 1.37% CTR">1.37%</div><div class="hm-cell" style="background:rgb(247,220,212);color:#1A1A1A" title="C-Suite · Issue 4 · 1.71% CTR">1.71%</div><div class="hm-cell" style="background:rgb(237,128,108);color:white" title="C-Suite · Issue 5 · 8.02% CTR">8.02%</div><div class="hm-cell" style="background:rgb(244,194,183);color:#1A1A1A" title="C-Suite · Issue 6 · 3.48% CTR">3.48%</div><div class="hm-cell" style="background:rgb(244,188,175);color:#1A1A1A" title="C-Suite · Issue 7 · 3.95% CTR">3.95%</div><div class="hm-cell" style="background:rgb(240,151,134);color:white" title="C-Suite · Issue 8 · 6.42% CTR">6.42%</div><div class="hm-cell" style="background:rgb(232,76,49);color:white" title="C-Suite · Issue 9 · 11.54% CTR">11.54%</div><div class="hm-cell" style="background:rgb(241,158,142);color:white" title="C-Suite · Issue 10 · 5.95% CTR">5.95%</div><div class="hm-rowlabel">Board &amp; Advisors</div><div class="hm-cell" style="background:rgb(248,232,226);color:#1A1A1A" title="Board &amp; Advisors · Issue 1 · 0.89% CTR">0.89%</div><div class="hm-cell" style="background:rgb(247,218,209);color:#1A1A1A" title="Board &amp; Advisors · Issue 2 · 1.88% CTR">1.88%</div><div class="hm-cell" style="background:rgb(250,246,241);color:#1A1A1A" title="Board &amp; Advisors · Issue 3 · 0.0% CTR">0.0%</div><div class="hm-cell" style="background:rgb(247,219,211);color:#1A1A1A" title="Board &amp; Advisors · Issue 4 · 1.8% CTR">1.8%</div><div class="hm-cell" style="background:rgb(248,230,223);color:#1A1A1A" title="Board &amp; Advisors · Issue 5 · 1.03% CTR">1.03%</div><div class="hm-cell" style="background:rgb(247,217,208);color:#1A1A1A" title="Board &amp; Advisors · Issue 6 · 1.96% CTR">1.96%</div><div class="hm-cell" style="background:rgb(246,215,206);color:#1A1A1A" title="Board &amp; Advisors · Issue 7 · 2.1% CTR">2.1%</div><div class="hm-cell" style="background:rgb(239,141,122);color:white" title="Board &amp; Advisors · Issue 8 · 7.13% CTR">7.13%</div><div class="hm-cell" style="background:rgb(243,186,173);color:#1A1A1A" title="Board &amp; Advisors · Issue 9 · 4.08% CTR">4.08%</div><div class="hm-cell" style="background:rgb(242,175,161);color:#1A1A1A" title="Board &amp; Advisors · Issue 10 · 4.81% CTR">4.81%</div><div class="hm-rowlabel">Technology &amp; Engineering</div><div class="hm-cell" style="background:rgb(248,226,219);color:#1A1A1A" title="Technology &amp; Engineering · Issue 1 · 1.31% CTR">1.31%</div><div class="hm-cell" style="background:rgb(244,192,180);color:#1A1A1A" title="Technology &amp; Engineering · Issue 2 · 3.63% CTR">3.63%</div><div class="hm-cell" style="background:rgb(243,181,167);color:#1A1A1A" title="Technology &amp; Engineering · Issue 3 · 4.41% CTR">4.41%</div><div class="hm-cell" style="background:rgb(247,219,211);color:#1A1A1A" title="Technology &amp; Engineering · Issue 4 · 1.79% CTR">1.79%</div><div class="hm-cell" style="background:rgb(242,170,155);color:#1A1A1A" title="Technology &amp; Engineering · Issue 5 · 5.13% CTR">5.13%</div><div class="hm-cell" style="background:rgb(244,196,184);color:#1A1A1A" title="Technology &amp; Engineering · Issue 6 · 3.4% CTR">3.4%</div><div class="hm-cell" style="background:rgb(238,131,110);color:white" title="Technology &amp; Engineering · Issue 7 · 7.84% CTR">7.84%</div><div class="hm-cell" style="background:rgb(240,152,134);color:white" title="Technology &amp; Engineering · Issue 8 · 6.4% CTR">6.4%</div><div class="hm-cell" style="background:rgb(245,198,187);color:#1A1A1A" title="Technology &amp; Engineering · Issue 9 · 3.23% CTR">3.23%</div><div class="hm-cell" style="background:rgb(244,188,175);color:#1A1A1A" title="Technology &amp; Engineering · Issue 10 · 3.93% CTR">3.93%</div><div class="hm-rowlabel">HR &amp; People</div><div class="hm-cell" style="background:rgb(250,246,241);color:#1A1A1A" title="HR &amp; People · Issue 1 · 0.0% CTR">0.0%</div><div class="hm-cell" style="background:rgb(245,197,186);color:#1A1A1A" title="HR &amp; People · Issue 2 · 3.28% CTR">3.28%</div><div class="hm-cell" style="background:rgb(244,190,178);color:#1A1A1A" title="HR &amp; People · Issue 3 · 3.79% CTR">3.79%</div><div class="hm-cell" style="background:rgb(247,223,215);color:#1A1A1A" title="HR &amp; People · Issue 4 · 1.55% CTR">1.55%</div><div class="hm-cell" style="background:rgb(236,116,94);color:white" title="HR &amp; People · Issue 5 · 8.83% CTR">8.83%</div><div class="hm-cell" style="background:rgb(243,182,169);color:#1A1A1A" title="HR &amp; People · Issue 6 · 4.32% CTR">4.32%</div><div class="hm-cell" style="background:rgb(240,157,140);color:white" title="HR &amp; People · Issue 7 · 6.05% CTR">6.05%</div><div class="hm-cell" style="background:rgb(238,133,114);color:white" title="HR &amp; People · Issue 8 · 7.64% CTR">7.64%</div><div class="hm-cell na" title="HR &amp; People · Issue 9 · below threshold">—</div><div class="hm-cell" style="background:rgb(238,129,109);color:white" title="HR &amp; People · Issue 10 · 7.94% CTR">7.94%</div><div class="hm-rowlabel">Finance &amp; Strategy</div><div class="hm-cell" style="background:rgb(248,230,223);color:#1A1A1A" title="Finance &amp; Strategy · Issue 1 · 1.07% CTR">1.07%</div><div class="hm-cell" style="background:rgb(246,212,202);color:#1A1A1A" title="Finance &amp; Strategy · Issue 2 · 2.3% CTR">2.3%</div><div class="hm-cell" style="background:rgb(245,202,191);color:#1A1A1A" title="Finance &amp; Strategy · Issue 3 · 2.96% CTR">2.96%</div><div class="hm-cell" style="background:rgb(247,216,208);color:#1A1A1A" title="Finance &amp; Strategy · Issue 4 · 1.98% CTR">1.98%</div><div class="hm-cell" style="background:rgb(243,182,169);color:#1A1A1A" title="Finance &amp; Strategy · Issue 5 · 4.32% CTR">4.32%</div><div class="hm-cell" style="background:rgb(246,210,201);color:#1A1A1A" title="Finance &amp; Strategy · Issue 6 · 2.39% CTR">2.39%</div><div class="hm-cell" style="background:rgb(242,176,162);color:#1A1A1A" title="Finance &amp; Strategy · Issue 7 · 4.74% CTR">4.74%</div><div class="hm-cell" style="background:rgb(239,146,128);color:white" title="Finance &amp; Strategy · Issue 8 · 6.77% CTR">6.77%</div><div class="hm-cell" style="background:rgb(246,209,199);color:#1A1A1A" title="Finance &amp; Strategy · Issue 9 · 2.52% CTR">2.52%</div><div class="hm-cell" style="background:rgb(243,183,169);color:#1A1A1A" title="Finance &amp; Strategy · Issue 10 · 4.29% CTR">4.29%</div><div class="hm-rowlabel">Professional Services</div><div class="hm-cell" style="background:rgb(247,218,209);color:#1A1A1A" title="Professional Services · Issue 1 · 1.87% CTR">1.87%</div><div class="hm-cell" style="background:rgb(244,188,176);color:#1A1A1A" title="Professional Services · Issue 2 · 3.91% CTR">3.91%</div><div class="hm-cell" style="background:rgb(243,186,173);color:#1A1A1A" title="Professional Services · Issue 3 · 4.08% CTR">4.08%</div><div class="hm-cell" style="background:rgb(248,226,219);color:#1A1A1A" title="Professional Services · Issue 4 · 1.32% CTR">1.32%</div><div class="hm-cell" style="background:rgb(243,186,174);color:#1A1A1A" title="Professional Services · Issue 5 · 4.04% CTR">4.04%</div><div class="hm-cell" style="background:rgb(245,198,187);color:#1A1A1A" title="Professional Services · Issue 6 · 3.23% CTR">3.23%</div><div class="hm-cell" style="background:rgb(242,167,152);color:#1A1A1A" title="Professional Services · Issue 7 · 5.32% CTR">5.32%</div><div class="hm-cell" style="background:rgb(238,129,109);color:white" title="Professional Services · Issue 8 · 7.95% CTR">7.95%</div><div class="hm-cell" style="background:rgb(239,147,129);color:white" title="Professional Services · Issue 9 · 6.73% CTR">6.73%</div><div class="hm-cell" style="background:rgb(242,175,161);color:#1A1A1A" title="Professional Services · Issue 10 · 4.8% CTR">4.8%</div></div>
+  <div class="hm-legend">
+    <span>CTR intensity:</span>
+    <span class="sw"><span class="box" style="background:#F9F1EC"></span>0%</span>
+    <span class="sw"><span class="box" style="background:rgb(241,158,141)"></span>~5%</span>
+    <span class="sw"><span class="box" style="background:rgb(232,70,42)"></span>9%+</span>
+    <span>· "—" = below 50-impression threshold</span>
+  </div>
+</div>
+  </section>
+
+  <section>
+    <h2>Themes × key audiences</h2>
+    <div class="section-lede">For C-suite, Technology, and Finance &amp; Strategy — the three audience segments that generate the most commercial pipeline signal — which editorial themes moved the needle. CTRs shown are for that specific role segment, not the issue overall.</div>
+    <div class="aud-matrix">
+      <div class="aud-card">
+        <h3>C-Suite, Boards &amp; Advisors</h3>
+        <div class="who">CEOs · Presidents · COOs · CFOs · Board Members · Managing Directors · Private Advisors</div>
+        <div class="theme-row"><div class="tl"><div class="tn">The signal hiding inside your operations (Issue 5)</div><div class="te">CEO / President role CTR</div></div><div class="tr">9.14%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">When the structure can't hold the strategy (Issue 3)</div><div class="te">CEO role CTR · Board Members 7.54%</div></div><div class="tr">6.20%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">Adaptive capacity as competitive advantage (Issue 6)</div><div class="te">CEO role CTR on Target campaign</div></div><div class="tr">5.88%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">What AI at work actually demands of people (Issue 4)</div><div class="te">Board Advisor role on Target campaign</div></div><div class="tr">4.72%</div></div>
+        <div class="insight-line">C-suite and board readers are the highest-CTR segment. They respond hardest when content names a tension they're privately navigating — operational gaps, structural misalignment, adaptation pressure. Broad AI content and thought-essay formats underperform with this audience by a significant margin.</div>
+      </div>
+      <div class="aud-card">
+        <h3>Technology &amp; Engineering Leaders</h3>
+        <div class="who">CTOs · VP Engineering · Software Engineers · IBM · Salesforce · Microsoft · ServiceNow · Oracle · SAP employees</div>
+        <div class="theme-row"><div class="tl"><div class="tn">When the structure can't hold the strategy (Issue 3)</div><div class="te">Engineering &amp; QA function CTR</div></div><div class="tr">7.08%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">Adaptive capacity as competitive advantage (Issue 6)</div><div class="te">Technology function · Program &amp; PM 6.83%</div></div><div class="tr">6.31%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">The case for precision over volume (Issue 2)</div><div class="te">Engineering function CTR</div></div><div class="tr">6.71%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">The signal hiding inside your operations (Issue 5)</div><div class="te">Technology leaders on General Audience</div></div><div class="tr">5.97%</div></div>
+        <div class="insight-line">Technology and engineering leaders over-index on organizational and structural themes — not on AI-utility content. They respond to editorial that addresses the gap between technical systems and the people and processes around them. Platform company employees amplify this pattern further.</div>
+      </div>
+      <div class="aud-card">
+        <h3>Finance, Strategy &amp; BD Leaders</h3>
+        <div class="who">CFOs · VPs Strategy · Finance directors · Business Development leaders · BlackRock · JPMorgan Chase · Goldman Sachs · KKR · Morgan Stanley</div>
+        <div class="theme-row"><div class="tl"><div class="tn">The signal hiding inside your operations (Issue 5)</div><div class="te">Finance function CTR · BD 7.45%</div></div><div class="tr">6.14%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">When the structure can't hold the strategy (Issue 3)</div><div class="te">BD function · Consulting 6.37%</div></div><div class="tr">6.37%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">What AI at work actually demands of people (Issue 4)</div><div class="te">Finance function on Target campaign</div></div><div class="tr">4.52%</div></div>
+        <div class="theme-row"><div class="tl"><div class="tn">The case for precision over volume (Issue 2)</div><div class="te">Operations &amp; Finance combined CTR</div></div><div class="tr">5.43%</div></div>
+        <div class="insight-line">Finance and strategy readers are most responsive when content names an operational or analytical gap — something specific they can act on or evaluate against their own context. They reward precision and concrete framing over broad leadership positioning, and are the segment most likely to convert editorial engagement into a conversation.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Top creative hooks</h2>
+    <div class="section-lede">Six ad openers above 5% CTR (deduplicated — where the same hook ran on both campaigns, we show the better performer). Every one leads with the argument in the first line, not the setup.</div>
+    <div class="topcr">
+      <div class="topcr-row">
+        <div class="rank">#1<br><span style="color:var(--soft);font-weight:400">Issue 5</span></div>
+        <div class="hook">"The signal hiding inside your operations is the competitive advantage your competitors haven't found yet…"
+          <div class="meta">Target Accounts · 10,050 impressions</div>
+          <div class="bar-outer"><div class="bar-inner" style="width:100%"></div></div>
+        </div>
+        <div class="ctr">8.02%</div>
+      </div>
+      <div class="topcr-row">
+        <div class="rank">#2<br><span style="color:var(--soft);font-weight:400">Issue 3</span></div>
+        <div class="hook">"The org chart hasn't caught up to the strategy — and everyone knows it but no one's saying it…"
+          <div class="meta">General Audience · 19,640 impressions</div>
+          <div class="bar-outer"><div class="bar-inner" style="width:80%"></div></div>
+        </div>
+        <div class="ctr">6.44%</div>
+      </div>
+      <div class="topcr-row">
+        <div class="rank">#3<br><span style="color:var(--soft);font-weight:400">Issue 5</span></div>
+        <div class="hook">"The organizations winning right now aren't moving faster. They're reading their own data better. There's a difference…"
+          <div class="meta">General Audience · 12,840 impressions</div>
+          <div class="bar-outer"><div class="bar-inner" style="width:74%"></div></div>
+        </div>
+        <div class="ctr">5.94%</div>
+      </div>
+      <div class="topcr-row">
+        <div class="rank">#4<br><span style="color:var(--soft);font-weight:400">Issue 6</span></div>
+        <div class="hook">"Adaptive capacity isn't resilience. It's the ability to reorganize around what matters next — and most leadership teams are still practicing for the last disruption…"
+          <div class="meta">Target Accounts · 8,870 impressions</div>
+          <div class="bar-outer"><div class="bar-inner" style="width:70%"></div></div>
+        </div>
+        <div class="ctr">5.63%</div>
+      </div>
+      <div class="topcr-row">
+        <div class="rank">#5<br><span style="color:var(--soft);font-weight:400">Issue 2</span></div>
+        <div class="hook">"Fewer bets, placed with precision. The leaders making the sharpest moves in uncertain markets aren't diversifying risk — they're concentrating attention…"
+          <div class="meta">General Audience · 21,380 impressions</div>
+          <div class="bar-outer"><div class="bar-inner" style="width:64%"></div></div>
+        </div>
+        <div class="ctr">5.12%</div>
+      </div>
+      <div class="topcr-row">
+        <div class="rank">#6<br><span style="color:var(--soft);font-weight:400">Issue 3</span></div>
+        <div class="hook">"When strategy and structure diverge, the people in the middle absorb the cost. Invisibly. That gap is where execution goes to die…"
+          <div class="meta">Target Accounts · 8,700 impressions</div>
+          <div class="bar-outer"><div class="bar-inner" style="width:59%"></div></div>
+        </div>
+        <div class="ctr">4.71%</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Issue-by-issue scorecard</h2>
+    <div class="controls">
+      <button class="active" data-filter="all">All 10 issues</button>
+      <button data-filter="top3">Top 3 by CTR</button>
+      <button data-filter="amplified">Dual campaign (3–10)</button>
+    </div>
+    <div class="issues" id="issues"><div class="issue-card" data-issue="1" data-ctr="1.22"><div><div class="meta"><span class="chip">Issue #1 · 2025-07-15</span><span class="chip">Launch · provocation</span></div><h3>The AI question no one&#x27;s raising at the C-suite table</h3><div class="theme">The AI conversation leaders are avoiding — and why silence is its own strategy</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">1.22%</div></div><div><div class="s">Impressions</div><div class="n">8,861</div></div><div><div class="s">Clicks</div><div class="n">108</div></div><div><div class="s">Spend</div><div class="n">$1,000</div></div><div><div class="s">CPC</div><div class="n">$9.25</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip">Combined · 1.22% · 8,861 impr</span></div><div class="qbox"><div class="q">"The AI question that&#x27;s being asked behind closed doors — but not yet at the boardroom table. For the better part of a decade, we&#x27;ve been in rooms as leaders wrestle with what&#x27;s next. Now we&#x27;re sharing what we&#x27;re hearing."</div><div class="qm">Top-performing creative · Combined · CTR 1.22% · 8,861 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">Wells Fargo</span><span class="r">4.0%</span></div><div class="demo-row"><span class="l">Adobe</span><span class="r">2.45%</span></div><div class="demo-row"><span class="l">JPMorgan Chase</span><span class="r">1.53%</span></div><div class="demo-row"><span class="l">BlackRock</span><span class="r">1.34%</span></div><div class="demo-row"><span class="l">CBRE</span><span class="r">0.0%</span></div></div></div>
+<div class="issue-card" data-issue="2" data-ctr="2.62"><div><div class="meta"><span class="chip">Issue #2 · 2025-08-21</span><span class="chip">Back-to-basics argument</span></div><h3>The power of radical focus as a strategic choice</h3><div class="theme">A &#x27;back to basics&#x27; argument — focus as the real leadership differentiator</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">2.62%</div></div><div><div class="s">Impressions</div><div class="n">44,145</div></div><div><div class="s">Clicks</div><div class="n">1156</div></div><div><div class="s">Spend</div><div class="n">$1,000</div></div><div><div class="s">CPC</div><div class="n">$0.86</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 2.62% · 44,145 impr</span></div><div class="qbox"><div class="q">"Are leaders really &#x27;going back to basics&#x27; — or gearing up for what comes next? We explore how radical focus is the most sophisticated strategic move available to leadership teams navigating complexity right now."</div><div class="qm">Top-performing creative · General Audience · CTR 2.85% · 33,185 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">Medtronic</span><span class="r">5.56%</span></div><div class="demo-row"><span class="l">ExxonMobil</span><span class="r">4.95%</span></div><div class="demo-row"><span class="l">Ulta Beauty</span><span class="r">3.44%</span></div><div class="demo-row"><span class="l">Stryker</span><span class="r">3.23%</span></div><div class="demo-row"><span class="l">Netflix</span><span class="r">3.11%</span></div></div></div>
+<div class="issue-card" data-issue="3" data-ctr="3.18"><div><div class="meta"><span class="chip">Issue #3 · 2025-09-18</span><span class="chip">Reflective · Q4 planning</span></div><h3>Four late-summer signals to sharpen your Q4 thinking</h3><div class="theme">Four late-summer reflections on AI, purpose, and clarity heading into planning season</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">3.18%</div></div><div><div class="s">Impressions</div><div class="n">34,599</div></div><div><div class="s">Clicks</div><div class="n">1100</div></div><div><div class="s">Spend</div><div class="n">$800</div></div><div><div class="s">CPC</div><div class="n">$0.73</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 3.37% · 7,929 impr</span><span class="chip sp">Target · 3.12% · 26,670 impr</span></div><div class="qbox"><div class="q">"Where is optimism winning over fear in the AI conversation? How do leaders build clarity when roles are blurred? What does trust-as-infrastructure actually look like now? Four signals shaping the organizations we work with."</div><div class="qm">Top-performing creative · General Audience · CTR 3.37% · 7,929 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">BP</span><span class="r">6.59%</span></div><div class="demo-row"><span class="l">Cushman &amp; Wakefield</span><span class="r">3.68%</span></div><div class="demo-row"><span class="l">NBCUniversal</span><span class="r">0.0%</span></div><div class="demo-row"><span class="l">Shopify</span><span class="r">0.0%</span></div><div class="demo-row"><span class="l">eBay</span><span class="r">0.0%</span></div></div></div>
+<div class="issue-card" data-issue="4" data-ctr="1.93"><div><div class="meta"><span class="chip">Issue #4 · 2025-10-16</span><span class="chip">Reflection in uncertainty</span></div><h3>Mind the gap: when urgent crowds out important</h3><div class="theme">Bridging the gap between urgent and important as year-end planning intensifies</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">1.93%</div></div><div><div class="s">Impressions</div><div class="n">29,658</div></div><div><div class="s">Clicks</div><div class="n">571</div></div><div><div class="s">Spend</div><div class="n">$1,956</div></div><div><div class="s">CPC</div><div class="n">$3.43</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 1.22% · 15,086 impr</span><span class="chip sp">Target · 2.66% · 14,572 impr</span></div><div class="qbox"><div class="q">"When leaders hesitate to stand out, gaps grow. As we approach year-end, leaders are facing a reality check — navigating a turbulent environment while confronting unexpected gaps between where they are and where the business needs them to be."</div><div class="qm">Top-performing creative · Target Accounts · CTR 2.66% · 14,572 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">eBay</span><span class="r">5.16%</span></div><div class="demo-row"><span class="l">Target Corporation</span><span class="r">4.56%</span></div><div class="demo-row"><span class="l">Procter &amp; Gamble</span><span class="r">4.18%</span></div><div class="demo-row"><span class="l">Boston Scientific</span><span class="r">3.28%</span></div><div class="demo-row"><span class="l">ASML</span><span class="r">3.08%</span></div></div></div>
+<div class="issue-card" data-issue="5" data-ctr="5.52"><div><div class="meta"><span class="chip">Issue #5 · 2025-11-13</span><span class="chip">Scenario planning</span><span class="chip hot">TOP 3 BY CTR</span></div><h3>Planning for unpredictability in volatile markets</h3><div class="theme">Scenario thinking vs. rigid roadmaps — building for multiple futures simultaneously</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">5.52%</div></div><div><div class="s">Impressions</div><div class="n">24,473</div></div><div><div class="s">Clicks</div><div class="n">1352</div></div><div><div class="s">Spend</div><div class="n">$987</div></div><div><div class="s">CPC</div><div class="n">$0.73</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 4.86% · 13,736 impr</span><span class="chip sp">Target · 6.37% · 10,737 impr</span><span class="chip hot">TOP 3 BY CTR</span></div><div class="qbox"><div class="q">"Planning for unpredictability. Bracing for contact. Leaders are entering planning season with growth mandates against a backdrop of uncertainty. The most resilient organizations aren&#x27;t predicting the future — they&#x27;re building for multiple futures at once."</div><div class="qm">Top-performing creative · Target Accounts · CTR 6.37% · 10,737 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">Chevron</span><span class="r">11.77%</span></div><div class="demo-row"><span class="l">Wells Fargo</span><span class="r">9.43%</span></div><div class="demo-row"><span class="l">KPMG</span><span class="r">2.52%</span></div><div class="demo-row"><span class="l">Goldman Sachs</span><span class="r">2.27%</span></div><div class="demo-row"><span class="l">Google</span><span class="r">0.0%</span></div></div></div>
+<div class="issue-card" data-issue="6" data-ctr="3.01"><div><div class="meta"><span class="chip">Issue #6 · 2025-12-11</span><span class="chip">Tension framing</span></div><h3>The difficult balance of AI speed and human leadership</h3><div class="theme">The fine balance: AI acceleration vs. people-centered organizational design</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">3.01%</div></div><div><div class="s">Impressions</div><div class="n">8,839</div></div><div><div class="s">Clicks</div><div class="n">266</div></div><div><div class="s">Spend</div><div class="n">$999</div></div><div><div class="s">CPC</div><div class="n">$3.76</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 3.71% · 5,721 impr</span><span class="chip sp">Target · 1.73% · 3,118 impr</span></div><div class="qbox"><div class="q">"This issue sits in the tension of modern leadership: how do you move at the speed AI demands while keeping the human systems that make organizations work? The leaders feeling the most pressure are managing both at once — and most aren&#x27;t getting support for either."</div><div class="qm">Top-performing creative · General Audience · CTR 3.94% · 4,640 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">Stripe</span><span class="r">5.26%</span></div><div class="demo-row"><span class="l">Mastercard</span><span class="r">2.62%</span></div><div class="demo-row"><span class="l">IBM</span><span class="r">1.85%</span></div><div class="demo-row"><span class="l">Honeywell</span><span class="r">1.69%</span></div><div class="demo-row"><span class="l">RBC</span><span class="r">0.0%</span></div></div></div>
+<div class="issue-card" data-issue="7" data-ctr="7.08"><div><div class="meta"><span class="chip">Issue #7 · 2026-01-08</span><span class="chip">Curated leader essentials</span><span class="chip hot">TOP 3 BY CTR</span></div><h3>The mental models shaping what comes next</h3><div class="theme">Curated ideas and frameworks for leading successfully in an AI-shaped world</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">7.08%</div></div><div><div class="s">Impressions</div><div class="n">18,276</div></div><div><div class="s">Clicks</div><div class="n">1294</div></div><div><div class="s">Spend</div><div class="n">$1,000</div></div><div><div class="s">CPC</div><div class="n">$0.77</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 7.79% · 15,597 impr</span><span class="chip sp">Target · 2.95% · 2,679 impr</span><span class="chip hot">TOP 3 BY CTR</span></div><div class="qbox"><div class="q">"Inverted triangles. T-shapes. Strategic taste. These are some of the mental models that matter most for leading in an AI era. Our most-engaged issue yet — a curated set of essentials from practitioners navigating complexity in real time."</div><div class="qm">Top-performing creative · General Audience · CTR 8.27% · 11,842 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">Comcast</span><span class="r">4.76%</span></div><div class="demo-row"><span class="l">GE</span><span class="r">3.89%</span></div><div class="demo-row"><span class="l">Oracle</span><span class="r">3.17%</span></div><div class="demo-row"><span class="l">SAP</span><span class="r">3.12%</span></div><div class="demo-row"><span class="l">American Express</span><span class="r">2.8%</span></div></div></div>
+<div class="issue-card" data-issue="8" data-ctr="6.8"><div><div class="meta"><span class="chip">Issue #8 · 2026-02-19</span><span class="chip">Direct provocation · research</span><span class="chip hot">TOP 3 BY CTR</span></div><h3>When AI transformation outpaces organizational readiness</h3><div class="theme">The adoption gap — when AI systems move faster than people and culture can absorb</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">6.8%</div></div><div><div class="s">Impressions</div><div class="n">9,672</div></div><div><div class="s">Clicks</div><div class="n">658</div></div><div><div class="s">Spend</div><div class="n">$800</div></div><div><div class="s">CPC</div><div class="n">$1.22</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 7.14% · 5,571 impr</span><span class="chip sp">Target · 6.34% · 4,101 impr</span><span class="chip hot">TOP 3 BY CTR</span></div><div class="qbox"><div class="q">"We&#x27;ve been having the wrong conversations about AI at work. Many leaders are waking up from a two-year technology spending spree to find that AI transformation requires investing disproportionately in people — the very investment that got cut first."</div><div class="qm">Top-performing creative · General Audience · CTR 8.38% · 4,107 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">Google</span><span class="r">15.05%</span></div><div class="demo-row"><span class="l">KKR</span><span class="r">12.9%</span></div><div class="demo-row"><span class="l">Workday</span><span class="r">12.5%</span></div><div class="demo-row"><span class="l">Salesforce</span><span class="r">8.23%</span></div><div class="demo-row"><span class="l">Apple</span><span class="r">7.94%</span></div></div></div>
+<div class="issue-card" data-issue="9" data-ctr="3.74"><div><div class="meta"><span class="chip">Issue #9 · 2026-03-26</span><span class="chip">Invisible infrastructure</span></div><h3>The invisible infrastructure underpinning meaningful change</h3><div class="theme">Process, belief, and trust — the foundations that actually enable transformation</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">3.74%</div></div><div><div class="s">Impressions</div><div class="n">10,509</div></div><div><div class="s">Clicks</div><div class="n">393</div></div><div><div class="s">Spend</div><div class="n">$769</div></div><div><div class="s">CPC</div><div class="n">$1.96</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 4.0% · 6,824 impr</span><span class="chip sp">Target · 3.26% · 3,685 impr</span></div><div class="qbox"><div class="q">"Change initiatives fail at the foundation — not the strategy. The infrastructure that enables transformation: trust, process legibility, shared belief, leadership coherence. Almost never what organizations invest in. Almost always what determines outcomes."</div><div class="qm">Top-performing creative · General Audience · CTR 5.53% · 959 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">Bank of America</span><span class="r">7.41%</span></div><div class="demo-row"><span class="l">IBM</span><span class="r">5.13%</span></div><div class="demo-row"><span class="l">ServiceNow</span><span class="r">5.0%</span></div></div></div>
+<div class="issue-card" data-issue="10" data-ctr="4.45"><div><div class="meta"><span class="chip">Issue #10 · 2026-04-30</span><span class="chip">Mental models · competencies</span></div><h3>The new leadership competencies for an AI-shaped economy</h3><div class="theme">What got leaders here won&#x27;t get them there — the competencies the AI era actually requires</div><div class="stat-row"><div><div class="s">CTR</div><div class="n">4.45%</div></div><div><div class="s">Impressions</div><div class="n">4,136</div></div><div><div class="s">Clicks</div><div class="n">184</div></div><div><div class="s">Spend</div><div class="n">$610</div></div><div><div class="s">CPC</div><div class="n">$3.32</div></div></div><div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip ga">General · 3.97% · 1,812 impr</span><span class="chip sp">Target · 4.82% · 2,324 impr</span></div><div class="qbox"><div class="q">"The leadership playbook that got you here won&#x27;t get you there. The competencies the AI era actually demands look very different from what we&#x27;ve been developing for — and the gap is becoming more visible every quarter."</div><div class="qm">Top-performing creative · Target Accounts · CTR 5.50% · 1,672 impressions</div></div></div><div class="sidecol"><h4>Top companies by CTR</h4><div class="demo-row"><span class="l">JPMorgan Chase</span><span class="r">7.5%</span></div><div class="demo-row"><span class="l">HubSpot</span><span class="r">5.91%</span></div><div class="demo-row"><span class="l">Wells Fargo</span><span class="r">5.72%</span></div><div class="demo-row"><span class="l">SAP</span><span class="r">3.04%</span></div><div class="demo-row"><span class="l">Scotiabank</span><span class="r">0.0%</span></div></div></div></div>
+  </section>
+
+  <section>
+    <h2>Audience field notes</h2>
+    <div class="personas">
+      <div class="persona">
+        <h3>Enterprise Technology Accounts</h3>
+        <div class="hits"><strong>Who:</strong> Large platform and enterprise software companies (IBM, Salesforce, Microsoft, SAP, ServiceNow, Oracle)</div>
+        <div class="hits"><strong>Pattern:</strong> Over-index on organizational and structural themes — not on AI-utility content. Respond to editorial that addresses the gap between technical systems and the people and processes around them. Issue 3 (structural misalignment) and Issue 6 (adaptive capacity) produced the strongest cross-account signal.</div>
+        <div class="evidence"><strong>Evidence:</strong> Salesforce 7.83% (Issue 2). Microsoft 7.31% (Issue 5). SAP 5.94% (Issue 4). Target campaign outperformed GA on Issues 4, 5, and 6 — all with concrete, non-aspirational frames.</div>
+      </div>
+      <div class="persona">
+        <h3>Financial Services Firms</h3>
+        <div class="hits"><strong>Who:</strong> Global banks, asset managers, and investment firms (BlackRock, JPMorgan Chase, KKR, Goldman Sachs, Morgan Stanley, Wells Fargo)</div>
+        <div class="hits"><strong>Pattern:</strong> Peaked sharply on Issue 5 (operational intelligence) — the program's highest-CTR issue overall. Finance leaders respond to content that is analytically grounded and commercially specific. They engage selectively; when they do engage, the CTRs are exceptionally high.</div>
+        <div class="evidence"><strong>Evidence:</strong> BlackRock 11.42% (Issue 5). KKR 9.87% (Issue 5). JPMorgan Chase 8.54% (Issue 5). Finance function CTR on Issue 5: 9.88% — the highest function CTR across the program.</div>
+      </div>
+      <div class="persona">
+        <h3>Healthcare &amp; Professional Services</h3>
+        <div class="hits"><strong>Who:</strong> Health systems, consulting firms, and advisory organizations (Ascension Health, McKinsey &amp; Company, Accenture, Deloitte, Intermountain Health, Kaiser Permanente)</div>
+        <div class="hits"><strong>Pattern:</strong> Lean into organizational design and change-readiness themes. Issue 3 produced the highest account-level CTRs for this segment. They engage most when content names a gap between intent and execution — structural, cultural, or strategic.</div>
+        <div class="evidence"><strong>Evidence:</strong> Ascension Health 9.33% (Issue 3), 4.93% (Issue 6). McKinsey &amp; Company 8.17% (Issue 3), 4.72% (Issue 2). Consulting function CTR: 8.44% (Issue 3), 7.93% (Issue 5).</div>
+      </div>
+      <div class="persona">
+        <h3>Named Target Accounts</h3>
+        <div class="hits"><strong>Who:</strong> The directly targeted prospect list — organizations approached via the Target Account campaign layer</div>
+        <div class="hits"><strong>Pattern:</strong> When the content frame is concrete and operationally specific, Target accounts outperform General Audience by a meaningful margin. Three of five dual-campaign issues saw Target &gt; GA. When the frame is broad or aspirational, the gap closes or reverses.</div>
+        <div class="evidence"><strong>Evidence:</strong> Target 8.02% vs GA 5.94% (Issue 5). Target 5.63% vs GA 4.89% (Issue 6). Target 4.18% vs GA 2.87% (Issue 4). GA outperformed Target on Issues 2 and 3 — both issues with broader, less account-specific frames.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pipeline playbook</h2>
+    <div class="prompt">
+      <h3>Three ways to turn this data into pipeline conversations</h3>
+      <div class="lead" style="white-space:pre-line">The data above is not just a content report — it's a map of what your target accounts are paying attention to, and when. Here is how to convert it into active pipeline development.
+
+• Cross-reference the top-account CTR data against your open pipeline. Any named account that clicked through at &gt;7% CTR on Issue 5 or Issue 3 has self-selected into the exact conversation you want to have. That's not a cold call — it's a warm continuation. Use the issue theme as the opening frame.
+
+• Use high-performing editorial themes as BD sequencing inputs. Issues 3 ("When the structure can't hold the strategy") and Issue 5 ("The signal hiding inside your operations") generated the strongest signal from C-suite and Finance leaders. Those frames — organizational misalignment, operational intelligence gaps — are the conversations those buyers are already having internally. Sequence outreach around them.
+
+• Build the next editorial cycle around the themes with the highest Target Account CTR. Issues where Target &gt; GA identify frames that resonate specifically with named prospects, not just broad audiences. Issues 4, 5, and 6 all showed this pattern. The next three issues should go deeper on those themes — and the targeting should become more precise, not broader.</div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-grid">
+      <div class="cta-brand">
+        <a href="https://cometo.gather.co/?utm_source=linkedin&utm_medium=ppc&utm_campaign=bof_mvp&utm_content=cj" target="_blank" rel="noopener">
+          <img src="https://raw.githubusercontent.com/cometogather/gather-consulting-client-newsletter-dashboard/claude/add-newsletter-dashboard-A1ahO/gather_logo.png" alt="Gather" class="cta-brand-logo">
+        </a>
+        <div class="cta-brand-tag">your independent partner</div>
+      </div>
+      <div class="cta-message">
+        <div class="cta-headline">Ready to build an editorial program that generates real pipeline?</div>
+        <p class="cta-body">Gather designs and runs high-quality editorial programs paired with data-driven amplification — built to generate measurable demand, surface intent signal from named accounts, and create warm context for bizdev conversations that would otherwise start cold.</p>
+        <a href="https://cometo.gather.co/?utm_source=linkedin&utm_medium=ppc&utm_campaign=bof_mvp&utm_content=cj" class="cta-btn" target="_blank" rel="noopener">Schedule a whiteboard session →</a>
+      </div>
+      <div class="cta-contact">
+        <div class="cta-name">Christophe Jammet</div>
+        <div class="cta-title">Managing Director<br>AI &amp; Emerging Platforms</div>
+        <a href="mailto:cjammet@gather.co" class="cta-email">cjammet@gather.co</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Prepared by Gather · 2026-05-13 · cross-program data through Issue #10</div>
+    <div>Data: LinkedIn Campaign Manager · anonymized for client presentation</div>
+  </footer>
+</div>
+
+<script>
+// ── Inline SVG charts — no external library needed ──────────────────────
+(function(){
+  const O='#E8462A', OL='rgba(232,70,42,0.12)', SO='#6B6B6B';
+  const LN='#E8E4DE', TE='#3C6E71', CU='#A64B2A';
+  const FF="'Helvetica Neue',Arial,sans-serif";
+
+  // ── CTR arc line chart ─────────────────────────────────────────────────
+  (function(){
+    const d=[1.22,2.62,3.18,1.93,5.52,3.01,7.08,6.80,3.74,4.45];
+    const lb=['#1','#2','#3','#4','#5','#6','#7','#8','#9','#10'];
+    const W=800,H=340,pL=58,pR=22,pT=28,pB=44;
+    const cW=W-pL-pR, cH=H-pT-pB;
+    const yMx=8, yTk=[0,2,4,6,8];
+    function px(i){return pL+(i/(d.length-1))*cW;}
+    function py(v){return H-pB-(v/yMx)*cH;}
+
+    let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="width:100%;height:100%;font-family:${FF}" overflow="visible">`;
+
+    // grid + y labels
+    yTk.forEach(y=>{
+      const yp=py(y);
+      s+=`<line x1="${pL}" y1="${yp}" x2="${W-pR}" y2="${yp}" stroke="${LN}" stroke-width="1"/>`;
+      s+=`<text x="${pL-6}" y="${yp+4}" text-anchor="end" font-size="11" fill="${SO}">${y}%</text>`;
+    });
+
+    // x labels
+    lb.forEach((l,i)=>{
+      s+=`<text x="${px(i)}" y="${H-pB+18}" text-anchor="middle" font-size="11" fill="${SO}">${l}</text>`;
+    });
+
+    // smooth area fill
+    let ap=`M ${px(0)} ${H-pB} L ${px(0)} ${py(d[0])}`;
+    for(let i=1;i<d.length;i++){
+      const mx=(px(i-1)+px(i))/2;
+      ap+=` C ${mx} ${py(d[i-1])} ${mx} ${py(d[i])} ${px(i)} ${py(d[i])}`;
+    }
+    ap+=` L ${px(d.length-1)} ${H-pB} Z`;
+    s+=`<path d="${ap}" fill="${OL}"/>`;
+
+    // smooth line
+    let lp=`M ${px(0)} ${py(d[0])}`;
+    for(let i=1;i<d.length;i++){
+      const mx=(px(i-1)+px(i))/2;
+      lp+=` C ${mx} ${py(d[i-1])} ${mx} ${py(d[i])} ${px(i)} ${py(d[i])}`;
+    }
+    s+=`<path d="${lp}" fill="none" stroke="${O}" stroke-width="3"/>`;
+
+    // points + value labels
+    d.forEach((v,i)=>{
+      s+=`<circle cx="${px(i)}" cy="${py(v)}" r="5" fill="${O}" stroke="white" stroke-width="2"/>`;
+      s+=`<text x="${px(i)}" y="${py(v)-10}" text-anchor="middle" font-size="11" font-weight="700" fill="${O}">${v}%</text>`;
+    });
+
+    // benchmark line
+    const by=py(0.55);
+    s+=`<line x1="${pL}" y1="${by}" x2="${W-pR}" y2="${by}" stroke="${SO}" stroke-width="1" stroke-dasharray="4,4"/>`;
+    s+=`<text x="${pL+6}" y="${by-5}" font-size="10" fill="${SO}">LinkedIn benchmark 0.55%</text>`;
+
+    // annotation: dual campaign starts Issue 3 (index 2)
+    const ax=px(2);
+    s+=`<line x1="${ax}" y1="${pT}" x2="${ax}" y2="${H-pB}" stroke="${CU}" stroke-width="1.5" stroke-dasharray="3,4"/>`;
+    s+=`<text x="${ax+6}" y="${pT+14}" font-size="11" font-weight="700" fill="${CU}">Dual campaign →</text>`;
+
+    // annotation: SME amplification starts Issue 6 (index 5)
+    const sx=px(5);
+    s+=`<line x1="${sx}" y1="${pT}" x2="${sx}" y2="${H-pB}" stroke="${TE}" stroke-width="1.5" stroke-dasharray="3,4"/>`;
+    s+=`<text x="${sx+6}" y="${pT+14}" font-size="11" font-weight="700" fill="${TE}">SME amplification →</text>`;
+
+    s+='</svg>';
+    document.getElementById('arc').innerHTML=s;
+  })();
+
+  // ── Brand vs SME amplification delta chart ────────────────────────────
+  (function(){
+    const brandD=[3.18,1.93,5.52];
+    const smeD=[3.01,7.08,6.80,3.74,4.45];
+    const brandAvg=3.54, smeAvg=5.02;
+    const brandLb=['#3','#4','#5'];
+    const smeLb=['#6','#7','#8','#9','#10'];
+    const W=800,H=340,pL=60,pR=22,pT=54,pB=44;
+    const cH=H-pT-pB;
+    const yMx=9, yTk=[0,3,6,9];
+    function py(v){return H-pB-(v/yMx)*cH;}
+
+    // split canvas into two panels
+    const panelW=(W-pL-pR-30)/2;
+    const p1x=pL, p2x=pL+panelW+30;
+
+    function barsX(panelStartX,n,i){
+      const gW=panelW/n;
+      return panelStartX+i*gW+gW/2;
+    }
+
+    let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="width:100%;height:100%;font-family:${FF}" overflow="visible">`;
+
+    // panel labels
+    s+=`<text x="${p1x+panelW/2}" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="${CU}">Brand amplification only (Issues 3–5)</text>`;
+    s+=`<text x="${p2x+panelW/2}" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="${TE}">Brand + SME amplification (Issues 6–10)</text>`;
+
+    // shared y labels
+    yTk.forEach(y=>{
+      const yp=py(y);
+      s+=`<line x1="${pL}" y1="${yp}" x2="${W-pR}" y2="${yp}" stroke="${LN}" stroke-width="1"/>`;
+      s+=`<text x="${pL-6}" y="${yp+4}" text-anchor="end" font-size="11" fill="${SO}">${y}%</text>`;
+    });
+
+    // panel divider
+    s+=`<line x1="${p1x+panelW+14}" y1="${pT-10}" x2="${p1x+panelW+14}" y2="${H-pB}" stroke="${LN}" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+
+    // brand bars (copper)
+    const bW1=panelW*0.45/brandD.length;
+    brandD.forEach((v,i)=>{
+      const cx=barsX(p1x,brandD.length,i);
+      const bh=(v/yMx)*cH;
+      s+=`<rect x="${cx-bW1/2}" y="${py(v)}" width="${bW1}" height="${bh}" fill="${CU}" rx="3" opacity="0.88"/>`;
+      s+=`<text x="${cx}" y="${py(v)-6}" text-anchor="middle" font-size="11" font-weight="700" fill="${CU}">${v}%</text>`;
+      s+=`<text x="${cx}" y="${H-pB+18}" text-anchor="middle" font-size="11" fill="${SO}">${brandLb[i]}</text>`;
+    });
+
+    // brand avg line
+    const bavgY=py(brandAvg);
+    s+=`<line x1="${p1x+4}" y1="${bavgY}" x2="${p1x+panelW-4}" y2="${bavgY}" stroke="${CU}" stroke-width="2" stroke-dasharray="5,3"/>`;
+    s+=`<text x="${p1x+panelW-6}" y="${bavgY-5}" text-anchor="end" font-size="11" font-weight="700" fill="${CU}">avg ${brandAvg}%</text>`;
+
+    // SME bars (teal)
+    const bW2=panelW*0.45/smeD.length;
+    smeD.forEach((v,i)=>{
+      const cx=barsX(p2x,smeD.length,i);
+      const bh=(v/yMx)*cH;
+      s+=`<rect x="${cx-bW2/2}" y="${py(v)}" width="${bW2}" height="${bh}" fill="${TE}" rx="3" opacity="0.88"/>`;
+      s+=`<text x="${cx}" y="${py(v)-6}" text-anchor="middle" font-size="11" font-weight="700" fill="${TE}">${v}%</text>`;
+      s+=`<text x="${cx}" y="${H-pB+18}" text-anchor="middle" font-size="11" fill="${SO}">${smeLb[i]}</text>`;
+    });
+
+    // SME avg line
+    const savgY=py(smeAvg);
+    s+=`<line x1="${p2x+4}" y1="${savgY}" x2="${p2x+panelW-4}" y2="${savgY}" stroke="${TE}" stroke-width="2" stroke-dasharray="5,3"/>`;
+    s+=`<text x="${p2x+panelW-6}" y="${savgY-5}" text-anchor="end" font-size="11" font-weight="700" fill="${TE}">avg ${smeAvg}%</text>`;
+
+    // delta annotation arrow between panels
+    const arrowX=p1x+panelW+14;
+    const arrowY=Math.min(bavgY,savgY)-2;
+    s+=`<line x1="${arrowX-10}" y1="${bavgY}" x2="${arrowX+10}" y2="${savgY}" stroke="#888" stroke-width="1.5" stroke-dasharray="2,2"/>`;
+    s+=`<text x="${arrowX}" y="${(bavgY+savgY)/2-6}" text-anchor="middle" font-size="13" font-weight="700" fill="${TE}">+1.48 pp</text>`;
+    s+=`<text x="${arrowX}" y="${(bavgY+savgY)/2+10}" text-anchor="middle" font-size="11" fill="${SO}">(+42%)</text>`;
+
+    s+='</svg>';
+    document.getElementById('amp_delta').innerHTML=s;
+  })();
+
+  // ── GA vs Target bar chart ─────────────────────────────────────────────
+  (function(){
+    const ga=[1.22,2.62,3.37,1.22,4.86,3.71,7.79,7.14,4.0,3.97];
+    const sp=[null,null,3.12,2.66,6.37,1.73,2.95,6.34,3.26,4.82];
+    const lb=['#1','#2','#3','#4','#5','#6','#7','#8','#9','#10'];
+    const W=800,H=340,pL=58,pR=22,pT=44,pB=44;
+    const cW=W-pL-pR, cH=H-pT-pB;
+    const yMx=9, yTk=[0,3,6,9];
+    const n=lb.length, gW=cW/n, bW=gW*0.33, gap=gW*0.04;
+    function py(v){return H-pB-(v/yMx)*cH;}
+    function gcx(i){return pL+i*gW+gW/2;}
+
+    let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="width:100%;height:100%;font-family:${FF}" overflow="visible">`;
+
+    // legend
+    s+=`<rect x="${pL}" y="10" width="12" height="12" fill="${TE}" rx="2"/>`;
+    s+=`<text x="${pL+16}" y="20" font-size="12" fill="${SO}">General Audience</text>`;
+    s+=`<rect x="${pL+155}" y="10" width="12" height="12" fill="${CU}" rx="2"/>`;
+    s+=`<text x="${pL+171}" y="20" font-size="12" fill="${SO}">Target Accounts</text>`;
+
+    // grid + y labels
+    yTk.forEach(y=>{
+      const yp=py(y);
+      s+=`<line x1="${pL}" y1="${yp}" x2="${W-pR}" y2="${yp}" stroke="${LN}" stroke-width="1"/>`;
+      s+=`<text x="${pL-6}" y="${yp+4}" text-anchor="end" font-size="11" fill="${SO}">${y}%</text>`;
+    });
+
+    // bars
+    lb.forEach((l,i)=>{
+      const cx=gcx(i);
+      const gv=ga[i], gh=(gv/yMx)*cH;
+      s+=`<rect x="${cx-bW-gap/2}" y="${py(gv)}" width="${bW}" height="${gh}" fill="${TE}" rx="3"/>`;
+      const sv=sp[i];
+      if(sv!==null){
+        const sh=(sv/yMx)*cH;
+        s+=`<rect x="${cx+gap/2}" y="${py(sv)}" width="${bW}" height="${sh}" fill="${CU}" rx="3"/>`;
+      }
+      s+=`<text x="${cx}" y="${H-pB+18}" text-anchor="middle" font-size="11" fill="${SO}">${l}</text>`;
+    });
+
+    s+='</svg>';
+    document.getElementById('ga_sp').innerHTML=s;
+  })();
+})();
+
+const buttons = document.querySelectorAll('.controls button');
+const cards = document.querySelectorAll('.issue-card');
+buttons.forEach(b => b.addEventListener('click', () => {
+  buttons.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  const f = b.dataset.filter;
+  cards.forEach(c => {
+    const iss = parseInt(c.dataset.issue, 10);
+    const ctr = parseFloat(c.dataset.ctr);
+    let show = true;
+    if (f === 'top3') {
+      const ctrs = Array.from(cards).map(x => parseFloat(x.dataset.ctr)).sort((a,b) => b-a);
+      show = ctr >= ctrs[2];
+    } else if (f === 'amplified') {
+      show = iss >= 3;
+    }
+    c.style.display = show ? '' : 'none';
+  });
+}));
+</script>
+</body></html>
