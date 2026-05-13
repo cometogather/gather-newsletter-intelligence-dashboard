@@ -538,7 +538,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-si
     // annotation: SME amplification starts Issue 6 (index 5)
     const sx=px(5);
     s+=`<line x1="${sx}" y1="${pT}" x2="${sx}" y2="${H-pB}" stroke="${TE}" stroke-width="1.5" stroke-dasharray="3,4"/>`;
-    s+=`<text x="${sx-6}" y="${pT-10}" text-anchor="end" font-size="11" font-weight="700" fill="${TE}">← SME amplification</text>`;
+    s+=`<text x="${sx+6}" y="${pT-10}" font-size="11" font-weight="700" fill="${TE}">SME amplification →</text>`;
 
     s+='</svg>';
     document.getElementById('arc').innerHTML=s;
