@@ -261,7 +261,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-si
 
   <section>
     <h2>Brand amplification vs SME amplification</h2>
-    <div class="section-lede">Issues 3–5 used brand-driven paid amplification only (dual-campaign GA + Target). From Issue 6, SME amplification was added — distributing through subject matter experts' own networks alongside the paid campaigns. Average CTR rose from 3.5% to 5.0% after SME amplification was introduced: a 1.5 percentage-point uplift, or roughly 42% improvement on the pre-SME baseline.</div>
+    <div class="section-lede">Same audiences, same budgets — different voice, completely different result. Issues 1–5 ran brand-only creative; from Issue 6, SME consultant posts ran alongside brand creative in identical campaigns. Isolated creative-type data from Issues 6–9: SME creative averaged 5.59% CTR versus brand creative at 1.94% — a 188% performance gap within the same paid media environment and identical targeting. Authentic human voices, amplified through the same LinkedIn channel, drive nearly 3× the engagement of brand posts. Issue 10 creative-type breakdown is pending.</div>
     <div class="chart-card">
       <div class="chart-canvas"><div id="amp_delta" style="width:100%;height:100%"></div></div>
     </div>
@@ -544,33 +544,80 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-si
     document.getElementById('arc').innerHTML=s;
   })();
 
-  // ── Brand vs SME: aggregate slope chart ───────────────────────────────
+  // ── Brand vs SME: dual-line CTR by creative type ────────────────────
   (function(){
-    const brandAvg=3.54, smeAvg=5.02;
-    const W=800,H=320,pL=60,pR=60,pT=80,pB=56;
-    const cH=H-pT-pB, yMn=2, yMx=7, yRange=yMx-yMn;
-    function py(v){return H-pB-((v-yMn)/yRange)*cH;}
-    const x1=W*0.28, x2=W*0.72;
-    const y1=py(brandAvg), y2=py(smeAvg);
+    // Brand creative CTR: issues 1–5 = combined campaign CTR (no SME ran)
+    // Issues 6–9 = isolated brand creative CTR from performance reports
+    // Issue 10 = creative-type breakdown not yet available
+    const brand=[1.22,2.62,3.18,1.93,5.52,1.64,2.79,1.88,1.45,null];
+    // SME creative CTR: confirmed for issues 6–9 from performance reports
+    const sme=[null,null,null,null,null,3.65,7.31,7.41,3.99,null];
+    const lb=['#1','#2','#3','#4','#5','#6','#7','#8','#9','#10'];
+    const W=800,H=340,pL=58,pR=90,pT=50,pB=44;
+    const cW=W-pL-pR, cH=H-pT-pB;
+    const yMx=9, yTk=[0,3,6,9];
+    function px(i){return pL+(i/(lb.length-1))*cW;}
+    function py(v){return H-pB-(v/yMx)*cH;}
     let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="width:100%;height:100%;font-family:${FF}" overflow="visible">`;
-    [2,3,4,5,6,7].forEach(y=>{
+    // grid + y labels
+    yTk.forEach(y=>{
       const yp=py(y);
-      s+=`<line x1="${x1-24}" y1="${yp}" x2="${x2+24}" y2="${yp}" stroke="${LN}" stroke-width="1"/>`;
-      s+=`<text x="${x1-30}" y="${yp+4}" text-anchor="end" font-size="11" fill="${SO}">${y}%</text>`;
+      s+=`<line x1="${pL}" y1="${yp}" x2="${W-pR}" y2="${yp}" stroke="${LN}" stroke-width="1"/>`;
+      s+=`<text x="${pL-6}" y="${yp+4}" text-anchor="end" font-size="11" fill="${SO}">${y}%</text>`;
     });
-    s+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${LN}" stroke-width="2"/>`;
-    s+=`<circle cx="${x1}" cy="${y1}" r="20" fill="${CU}" stroke="white" stroke-width="3" style="cursor:pointer" onmouseover="showTT(event,'Brand only (Issues 3–5)<br><b>${brandAvg}%</b> avg CTR')" onmouseout="hideTT()"/>`;
-    s+=`<text x="${x1}" y="${y1+5}" text-anchor="middle" font-size="12" font-weight="700" fill="white">${brandAvg}%</text>`;
-    s+=`<text x="${x1}" y="${H-pB+22}" text-anchor="middle" font-size="13" font-weight="700" fill="${CU}">Brand only</text>`;
-    s+=`<text x="${x1}" y="${H-pB+38}" text-anchor="middle" font-size="11" fill="${SO}">Issues 3–5</text>`;
-    s+=`<circle cx="${x2}" cy="${y2}" r="20" fill="${TE}" stroke="white" stroke-width="3" style="cursor:pointer" onmouseover="showTT(event,'Brand + SME (Issues 6–10)<br><b>${smeAvg}%</b> avg CTR')" onmouseout="hideTT()"/>`;
-    s+=`<text x="${x2}" y="${y2+5}" text-anchor="middle" font-size="12" font-weight="700" fill="white">${smeAvg}%</text>`;
-    s+=`<text x="${x2}" y="${H-pB+22}" text-anchor="middle" font-size="13" font-weight="700" fill="${TE}">Brand + SME</text>`;
-    s+=`<text x="${x2}" y="${H-pB+38}" text-anchor="middle" font-size="11" fill="${SO}">Issues 6–10</text>`;
-    const mx=(x1+x2)/2, my=(y1+y2)/2;
-    s+=`<rect x="${mx-52}" y="${my-21}" width="104" height="40" fill="white" rx="20" stroke="${TE}" stroke-width="1.5"/>`;
-    s+=`<text x="${mx}" y="${my-3}" text-anchor="middle" font-size="14" font-weight="700" fill="${TE}">+1.48 pp</text>`;
-    s+=`<text x="${mx}" y="${my+14}" text-anchor="middle" font-size="11" fill="${SO}">+42% uplift</text>`;
+    // x labels
+    lb.forEach((l,i)=>{
+      s+=`<text x="${px(i)}" y="${H-pB+18}" text-anchor="middle" font-size="11" fill="${SO}">${l}</text>`;
+    });
+    // legend
+    s+=`<rect x="${pL}" y="12" width="12" height="12" fill="${CU}" rx="2"/>`;
+    s+=`<text x="${pL+16}" y="22" font-size="12" fill="${SO}">Brand creative CTR</text>`;
+    s+=`<rect x="${pL+175}" y="12" width="12" height="12" fill="${TE}" rx="2"/>`;
+    s+=`<text x="${pL+191}" y="22" font-size="12" fill="${SO}">SME creative CTR</text>`;
+    // brand area fill (issues 0–8)
+    const bPts=brand.map((v,i)=>v!==null?[px(i),py(v)]:null).filter(Boolean);
+    let ap=`M ${bPts[0][0]} ${H-pB} L ${bPts[0][0]} ${bPts[0][1]}`;
+    for(let i=1;i<bPts.length;i++){const mx=(bPts[i-1][0]+bPts[i][0])/2;ap+=` C ${mx} ${bPts[i-1][1]} ${mx} ${bPts[i][1]} ${bPts[i][0]} ${bPts[i][1]}`;}
+    ap+=` L ${bPts[bPts.length-1][0]} ${H-pB} Z`;
+    s+=`<path d="${ap}" fill="rgba(166,75,42,0.07)"/>`;
+    // brand line
+    let lp=`M ${bPts[0][0]} ${bPts[0][1]}`;
+    for(let i=1;i<bPts.length;i++){const mx=(bPts[i-1][0]+bPts[i][0])/2;lp+=` C ${mx} ${bPts[i-1][1]} ${mx} ${bPts[i][1]} ${bPts[i][0]} ${bPts[i][1]}`;}
+    s+=`<path d="${lp}" fill="none" stroke="${CU}" stroke-width="2.5"/>`;
+    // sme area fill (issues 5–8)
+    const sPts=sme.map((v,i)=>v!==null?[px(i),py(v)]:null).filter(Boolean);
+    let sap=`M ${sPts[0][0]} ${H-pB} L ${sPts[0][0]} ${sPts[0][1]}`;
+    for(let i=1;i<sPts.length;i++){const mx=(sPts[i-1][0]+sPts[i][0])/2;sap+=` C ${mx} ${sPts[i-1][1]} ${mx} ${sPts[i][1]} ${sPts[i][0]} ${sPts[i][1]}`;}
+    sap+=` L ${sPts[sPts.length-1][0]} ${H-pB} Z`;
+    s+=`<path d="${sap}" fill="rgba(60,110,113,0.1)"/>`;
+    // sme line
+    let sp=`M ${sPts[0][0]} ${sPts[0][1]}`;
+    for(let i=1;i<sPts.length;i++){const mx=(sPts[i-1][0]+sPts[i][0])/2;sp+=` C ${mx} ${sPts[i-1][1]} ${mx} ${sPts[i][1]} ${sPts[i][0]} ${sPts[i][1]}`;}
+    s+=`<path d="${sp}" fill="none" stroke="${TE}" stroke-width="2.5"/>`;
+    // SME introduced annotation (issue 6, index 5)
+    const x6=px(5);
+    s+=`<line x1="${x6}" y1="${pT}" x2="${x6}" y2="${H-pB}" stroke="${TE}" stroke-width="1.2" stroke-dasharray="3,4" opacity="0.5"/>`;
+    s+=`<text x="${x6+5}" y="${pT-10}" font-size="10" font-weight="700" fill="${TE}">SME introduced →</text>`;
+    // brand data points with correct values baked in
+    brand.forEach((v,i)=>{
+      if(v===null)return;
+      s+=`<circle cx="${px(i)}" cy="${py(v)}" r="5.5" fill="${CU}" stroke="white" stroke-width="2" style="cursor:pointer" onmouseover="showTT(event,'Issue ${lb[i]}<br>Brand CTR: <b>${v}%</b>')" onmouseout="hideTT()"/>`;
+    });
+    // sme data points with correct values baked in
+    sme.forEach((v,i)=>{
+      if(v===null)return;
+      s+=`<circle cx="${px(i)}" cy="${py(v)}" r="5.5" fill="${TE}" stroke="white" stroke-width="2" style="cursor:pointer" onmouseover="showTT(event,'Issue ${lb[i]}<br>SME CTR: <b>${v}%</b>')" onmouseout="hideTT()"/>`;
+    });
+    // avg dashed lines with labels
+    const bAvg=2.47, bAvgY=py(bAvg);
+    s+=`<line x1="${pL}" y1="${bAvgY}" x2="${bPts[bPts.length-1][0]}" y2="${bAvgY}" stroke="${CU}" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>`;
+    s+=`<text x="${bPts[bPts.length-1][0]+6}" y="${bAvgY+4}" font-size="10" fill="${CU}">avg 2.47%</text>`;
+    const sAvg=5.59, sAvgY=py(sAvg);
+    s+=`<line x1="${sPts[0][0]}" y1="${sAvgY}" x2="${sPts[sPts.length-1][0]}" y2="${sAvgY}" stroke="${TE}" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>`;
+    s+=`<text x="${sPts[sPts.length-1][0]+6}" y="${sAvgY+4}" font-size="10" fill="${TE}">avg 5.59%</text>`;
+    // issue 10 pending label
+    s+=`<text x="${px(9)}" y="${py(0.9)}" text-anchor="middle" font-size="10" fill="${SO}" font-style="italic">#10 split</text>`;
+    s+=`<text x="${px(9)}" y="${py(0.9)+13}" text-anchor="middle" font-size="10" fill="${SO}" font-style="italic">pending</text>`;
     s+='</svg>';
     document.getElementById('amp_delta').innerHTML=s;
   })();
